@@ -22,5 +22,8 @@
     "typescript": "^5.8.3"
   },
   "keywords": [],
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.8.2"
+  }
 }
