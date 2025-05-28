@@ -78,4 +78,13 @@ model Aplicaciones_foto {
   foto String
 }
 
+model Publicaciones {
+  link_plantilla String  @id
+  desc String
+  nombre String
+}
 
+model Publicaciones_foto {
+  Id_publicaciones_foto Int @id @default(autoincrement())
+  foto String
+}
