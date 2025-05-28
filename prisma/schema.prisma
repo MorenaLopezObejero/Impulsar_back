@@ -88,3 +88,31 @@ model Publicaciones_foto {
   Id_publicaciones_foto Int @id @default(autoincrement())
   foto String
 }
+
+model Productos {
+  nombre_producto String @id
+  pasos String
+  descripcion String
+  stock Int
+  costo Float
+}
+
+model Productos_foto {
+  Id_productos_foto Int @id @default(autoincrement())
+  foto String
+}
+
+model Materiales_producto {
+  Id_materiales_producto Int @id @default(autoincrement())
+}
+
+model Materiales {
+  nombre String @id
+  costo Float
+  stock Int
+}
+
+model Materiales_foto {
+  Id_materiales_foto Int @id @default(autoincrement())
+  foto String
+}
