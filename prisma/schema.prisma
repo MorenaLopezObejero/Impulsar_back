@@ -18,11 +18,16 @@ model Usuario {
   email String @id
   contra String
   nombre  String
+
+  foto Foto_Usuario @relation(fields: [foto_perfil], references: [Id_fotousu])
+  foto_perfil Int
 }
 
 model Foto_Usuario {
   Id_fotousu Int @id @default(autoincrement())
   foto_perfil  String
+
+  usuarios Usuario[]
 }
 
 model Contactos {
