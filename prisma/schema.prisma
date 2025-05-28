@@ -40,3 +40,42 @@ model Emprendimiento {
   descripcion String
   nombre String 
 }
+
+model Logotipo {
+  link_plantilla String @id
+  descripcion_logotipo String
+}
+
+model Foto_logotipo {
+  Id_foto_logotipo  Int @id @default(autoincrement())
+  foto_logotipo String
+}
+
+model Colores_marca {
+  nom_colores String @id
+  foto String
+}
+
+model Marketing_emprendimiento {
+  Id_marketing_emprendimiento Int @id @default(autoincrement())
+}
+
+model Marketing {
+  Id_marketing Int @id @default(autoincrement())
+  costo Float
+  stock Int
+}
+
+model Aplicaciones {
+  nombre String @id
+  desc_uso String
+  link_tuto String
+  link_uso String
+}
+
+model Aplicaciones_foto {
+  Id_aplicaciones_foto Int @id @default(autoincrement())
+  foto String
+}
+
+
