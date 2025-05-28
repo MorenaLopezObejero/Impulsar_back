@@ -21,6 +21,9 @@ model Usuario {
 
   foto Foto_Usuario @relation(fields: [foto_perfil], references: [Id_fotousu])
   foto_perfil Int
+
+  typo_emprendimiento Emprendimiento @relation(fields: [typo_id], references: [typo])
+  typo_id String
 }
 
 model Foto_Usuario {
@@ -44,6 +47,8 @@ model Emprendimiento {
   typo String @id
   descripcion String
   nombre String 
+
+  usuario Usuario[]
 }
 
 model Logotipo {
