@@ -14,3 +14,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Usuario {
+  email String @id
+  contra String
+  nombre  String
+}
+
+model Foto_Usuario {
+  Id_fotousu Int @id @default(autoincrement())
+  foto_perfil  String
+}
+
+model Contactos {
+  Id_contactos Int @id @default(autoincrement())
+  telefono Int
+  nombre String
+  redes_soc String
+  pref_com String
+  notas_perz String
+  email_contactos String
+}
+
+model Emprendimiento {
+  typo String @id
+  descripcion String
+  nombre String 
+}
