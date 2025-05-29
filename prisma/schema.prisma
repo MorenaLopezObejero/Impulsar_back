@@ -35,6 +35,7 @@ model Foto_Usuario {
   foto_perfil  String
 
   usuarios Usuario[]
+  foto_contacto Foto[]
 }
 
 model Contactos {
@@ -45,6 +46,9 @@ model Contactos {
   pref_com String
   notas_perz String
   email_contactos String
+
+  foto Foto_Usuario @relation(fields: [foto_contacto], references: [Id_fotousu])
+  foto_contacto Int
 
   usuario Usuario[]
 }
