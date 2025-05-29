@@ -35,7 +35,7 @@ model Foto_Usuario {
   foto_perfil  String
 
   usuarios Usuario[]
-  foto_contacto Foto[]
+  foto_contacto Contactos[]
 }
 
 model Contactos {
