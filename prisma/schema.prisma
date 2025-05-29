@@ -24,6 +24,10 @@ model Usuario {
 
   typo_emprendimiento Emprendimiento @relation(fields: [typo_id], references: [typo])
   typo_id String
+
+  Id_contactos Contactos @relation(fields: [contacto], references: [Id_contactos])
+  contacto Int
+
 }
 
 model Foto_Usuario {
@@ -41,6 +45,8 @@ model Contactos {
   pref_com String
   notas_perz String
   email_contactos String
+
+  usuario Usuario[]
 }
 
 model Emprendimiento {
