@@ -58,22 +58,37 @@ model Emprendimiento {
   descripcion String
   nombre String 
 
+  rela_logo_emp Logotipo @relation(fields: [logotipo], references: [link_plantilla])
+  logotipo String
+
+  rela_logo_colo Colores_marca @relation(fields: [nom_color], references: [nom_colores])
+  nom_color String
+
   usuario Usuario[]
 }
 
 model Logotipo {
   link_plantilla String @id
   descripcion_logotipo String
+
+  rela_logo_fotologo Foto_logotipo @relation(fields: [foto], references: [Id_foto_logotipo])
+  foto Int
+
+  emprendimiento Emprendimiento []
 }
 
 model Foto_logotipo {
   Id_foto_logotipo  Int @id @default(autoincrement())
   foto_logotipo String
+
+  logotipo Logotipo[]
 }
 
 model Colores_marca {
   nom_colores String @id
   foto String
+
+  emprendimiento Emprendimiento []
 }
 
 model Marketing_emprendimiento {
