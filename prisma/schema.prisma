@@ -61,8 +61,11 @@ model Emprendimiento {
   rela_logo_emp Logotipo @relation(fields: [logotipo], references: [link_plantilla])
   logotipo String
 
-  rela_logo_colo Colores_marca @relation(fields: [nom_color], references: [nom_colores])
+  rela_colo_emp Colores_marca @relation(fields: [nom_color], references: [nom_colores])
   nom_color String
+
+  rela_produ_emp Productos @relation(fields: [producto], references: [nombre_producto])
+  producto String
 
   usuario Usuario[]
 }
@@ -130,24 +133,45 @@ model Productos {
   descripcion String
   stock Int
   costo Float
+
+  rela_foto_produ Productos_foto @relation(fields: [foto], references: [Id_productos_foto])
+  foto Int
+
+  emprendimiento Emprendimiento []
+  materiales_producto Materiales_producto []
 }
 
 model Productos_foto {
   Id_productos_foto Int @id @default(autoincrement())
   foto String
+
+  productos Productos []
 }
 
 model Materiales_producto {
   Id_materiales_producto Int @id @default(autoincrement())
+
+  rela_prod_mate Productos @relation(fields: [nom_prod], references: [nombre_producto])
+  nom_prod String
+
+  rela_mate_produ Materiales @relation(fields: [nom_mat], references: [nombre])
+  nom_mat String
 }
 
 model Materiales {
   nombre String @id
   costo Float
   stock Int
+
+  rela_foto_mate Materiales_foto @relation(fields: [foto_materiales], references: [Id_materiales_foto])
+  foto_materiales Int
+
+  materiales_producto Materiales_producto []
 }
 
 model Materiales_foto {
   Id_materiales_foto Int @id @default(autoincrement())
   foto String
+
+  materiales Materiales []
 }
