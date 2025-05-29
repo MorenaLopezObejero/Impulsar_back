@@ -68,6 +68,7 @@ model Emprendimiento {
   producto String
 
   usuario Usuario[]
+  marketing_emprendimiento Marketing_emprendimiento []
 }
 
 model Logotipo {
@@ -96,12 +97,26 @@ model Colores_marca {
 
 model Marketing_emprendimiento {
   Id_marketing_emprendimiento Int @id @default(autoincrement())
+
+  rela_emp_mark Emprendimiento @relation(fields: [typo_emp], references: [typo])
+  typo_emp String
+
+  rela_mark_emp Marketing @relation(fields: [Id_mark], references: [Id_marketing])
+  Id_mark Int
 }
 
 model Marketing {
   Id_marketing Int @id @default(autoincrement())
   costo Float
   stock Int
+
+  rela_app_mark Aplicaciones @relation(fields: [aplicacion], references: [nombre])
+  aplicacion String
+
+  rela_publi_mark Publicaciones @relation(fields: [publicacion], references: [link_plantilla])
+  publicacion String
+
+  marketing_emprendimiento Marketing_emprendimiento []
 }
 
 model Aplicaciones {
@@ -109,22 +124,36 @@ model Aplicaciones {
   desc_uso String
   link_tuto String
   link_uso String
+
+  rela_foto_app Aplicaciones_foto @relation(fields: [foto_aplicacion], references: [Id_aplicaciones_foto])
+  foto_aplicacion Int
+
+  marketing Marketing []
 }
 
 model Aplicaciones_foto {
   Id_aplicaciones_foto Int @id @default(autoincrement())
   foto String
+
+  aplicaciones Aplicaciones []
 }
 
 model Publicaciones {
   link_plantilla String  @id
   desc String
   nombre String
+
+  rela_foto_publi Publicaciones_foto @relation(fields: [foto], references: [Id_publicaciones_foto])
+  foto Int
+
+  marketing  Marketing []
 }
 
 model Publicaciones_foto {
   Id_publicaciones_foto Int @id @default(autoincrement())
   foto String
+
+  publicaciones Publicaciones []
 }
 
 model Productos {
