@@ -166,6 +166,9 @@ model Productos {
   rela_foto_produ Productos_foto @relation(fields: [foto], references: [Id_productos_foto])
   foto Int
 
+  rela_produ_stck Productos_stock @relation(fields: [stock], references: [Id_productos_stock])
+  stock Int
+
   emprendimiento Emprendimiento []
   materiales_producto Materiales_producto []
 }
@@ -175,6 +178,13 @@ model Productos_foto {
   foto String
 
   productos Productos []
+}
+
+model Productos_stock {
+  Id_productos_stock Int @id @default(autoincrement())
+  stock Int
+
+  productos Productos[]
 }
 
 model Materiales_producto {
