@@ -43,7 +43,6 @@ model Contactos {
   telefono Int
   nombre String
   redes_soc String
-  pref_com String
   notas_perz String
   email_contactos String
 
@@ -69,6 +68,17 @@ model Emprendimiento {
 
   usuario Usuario[]
   marketing_emprendimiento Marketing_emprendimiento []
+  emprendimiento_producto Emprendimiento_producto []
+}
+
+model Emprendimiento_producto{
+  Id_emp_prod Int @id @default(autoincrement())
+
+  rela_emp_prod Emprendimiento  @relation(fields: [emp_prod], references: [typo])
+  emp_prod String
+
+  rela_prod_emp Productos @relation(fields: [prod_emp], references: [nombre_producto])
+  prod_emp String
 }
 
 model Logotipo {
@@ -160,17 +170,20 @@ model Productos {
   nombre_producto String @id
   pasos String
   descripcion String
-  stock Int
-  costo Float
 
   rela_foto_produ Productos_foto @relation(fields: [foto], references: [Id_productos_foto])
   foto Int
+
+  rela_produ_costo Productos_costo @relation(fields: [costo], references: [Id_productos_costo])
+  costo Int
+
 
   rela_produ_stck Productos_stock @relation(fields: [stock], references: [Id_productos_stock])
   stock Int
 
   emprendimiento Emprendimiento []
   materiales_producto Materiales_producto []
+  emprendimiento_productos Emprendimiento_producto []
 }
 
 model Productos_foto {
@@ -180,6 +193,12 @@ model Productos_foto {
   productos Productos []
 }
 
+model Productos_costo {
+  Id_productos_costo Int @id @default(autoincrement())
+  costo Float
+
+  productos Productos[]
+}
 model Productos_stock {
   Id_productos_stock Int @id @default(autoincrement())
   stock Int
@@ -199,11 +218,15 @@ model Materiales_producto {
 
 model Materiales {
   nombre String @id
-  costo Float
-  stock Int
 
   rela_foto_mate Materiales_foto @relation(fields: [foto_materiales], references: [Id_materiales_foto])
   foto_materiales Int
+
+  rela_mate_costo Materiales_costo @relation(fields: [costo], references: [Id_materiales_costo])
+  costo Int
+
+  rela_mate_stock Materiales_stock @relation(fields: [stock], references: [Id_materiales_stock])
+  stock Int
 
   materiales_producto Materiales_producto []
 }
@@ -211,6 +234,20 @@ model Materiales {
 model Materiales_foto {
   Id_materiales_foto Int @id @default(autoincrement())
   foto String
+
+  materiales Materiales []
+}
+
+model Materiales_costo {
+  Id_materiales_costo Int @id @default(autoincrement())
+  costo Float
+
+  materiales Materiales[]
+}
+
+model Materiales_stock {
+  Id_materiales_stock Int @id @default(autoincrement())
+  stock Int
 
   materiales Materiales []
 }
