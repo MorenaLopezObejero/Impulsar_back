@@ -28,6 +28,8 @@ model Usuario {
   Id_contactos Contactos @relation(fields: [contacto], references: [Id_contactos])
   contacto Int
 
+  usuario_emprendimiento Usuario_Emprendimiento[]
+
 }
 
 model Usuario_Emprendimiento {
@@ -36,6 +38,11 @@ model Usuario_Emprendimiento {
  rela_colo_usuemp Colores_marca @relation(fields: [nom_color], references: [nom_colores])
   nom_color String
 
+  rela_usu_usuemp Usuario @relation(fields: [email], references: [email])
+  email String
+
+  rela_emp_usuemp Emprendimiento @relation(fields: [typo], references: [typo])
+  typo String
 }
 
 model Foto_Usuario {
@@ -71,6 +78,7 @@ model Emprendimiento {
   usuario Usuario[]
   marketing_emprendimiento Marketing_emprendimiento []
   emprendimiento_producto Emprendimiento_producto []
+  usuario_emprendimiento Usuario_Emprendimiento[]
 }
 
 model Emprendimiento_producto{
