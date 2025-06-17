@@ -30,6 +30,14 @@ model Usuario {
 
 }
 
+model Usuario_Emprendimiento {
+  Id_usu_emp Int @id @default(autoincrement())
+
+ rela_colo_usuemp Colores_marca @relation(fields: [nom_color], references: [nom_colores])
+  nom_color String
+
+}
+
 model Foto_Usuario {
   Id_fotousu Int @id @default(autoincrement())
   foto_perfil  String
@@ -57,11 +65,6 @@ model Emprendimiento {
   descripcion String
   nombre String 
 
- 
-
-  rela_colo_emp Colores_marca @relation(fields: [nom_color], references: [nom_colores])
-  nom_color String
-
   rela_produ_emp Productos @relation(fields: [producto], references: [nombre_producto])
   producto String
 
@@ -82,7 +85,7 @@ model Emprendimiento_producto{
 model Colores_marca {
   nom_colores String @id
   foto String
-  emprendimiento Emprendimiento []
+  usuario_emprendimiento Usuario_Emprendimiento []
 }
 
 model Marketing_emprendimiento {
@@ -97,35 +100,11 @@ model Marketing_emprendimiento {
 
 model Marketing {
   Id_marketing Int @id @default(autoincrement())
-  costo Float
-  stock Int
-
-  rela_app_mark Aplicaciones @relation(fields: [aplicacion], references: [nombre])
-  aplicacion String
 
   rela_publi_mark Publicaciones @relation(fields: [publicacion], references: [link_plantilla])
   publicacion String
 
   marketing_emprendimiento Marketing_emprendimiento []
-}
-
-model Aplicaciones {
-  nombre String @id
-  desc_uso String
-  link_tuto String
-  link_uso String
-
-  rela_foto_app Aplicaciones_foto @relation(fields: [foto_aplicacion], references: [Id_aplicaciones_foto])
-  foto_aplicacion Int
-
-  marketing Marketing []
-}
-
-model Aplicaciones_foto {
-  Id_aplicaciones_foto Int @id @default(autoincrement())
-  foto String
-
-  aplicaciones Aplicaciones []
 }
 
 model Publicaciones {
