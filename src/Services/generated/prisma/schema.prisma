@@ -1,0 +1,187 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  email  String @id
+  contra String
+  nombre String
+
+  foto        Foto_Usuario @relation(fields: [foto_perfil], references: [Id_fotousu])
+  foto_perfil Int
+
+  typo_emprendimiento Emprendimiento @relation(fields: [typo_id], references: [typo])
+  typo_id             String
+
+  Id_contactos Contactos @relation(fields: [contacto], references: [Id_contactos])
+  contacto     Int
+
+  usuario_emprendimiento Usuario_Emprendimiento[]
+}
+
+model Usuario_Emprendimiento {
+  Id_usu_emp Int @id @default(autoincrement())
+
+  rela_colo_usuemp Colores_marca @relation(fields: [nom_color], references: [nom_colores])
+  nom_color        String
+
+  rela_usu_usuemp Usuario @relation(fields: [email], references: [email])
+  email           String
+
+  rela_emp_usuemp Emprendimiento @relation(fields: [typo], references: [typo])
+  typo            String
+}
+
+model Foto_Usuario {
+  Id_fotousu  Int    @id @default(autoincrement())
+  foto_perfil String
+
+  usuarios      Usuario[]
+  foto_contacto Contactos[]
+}
+
+model Contactos {
+  Id_contactos    Int    @id @default(autoincrement())
+  telefono        Int
+  nombre          String
+  redes_soc       String
+  notas_perz      String
+  email_contactos String
+
+  foto          Foto_Usuario @relation(fields: [foto_contacto], references: [Id_fotousu])
+  foto_contacto Int
+
+  usuario Usuario[]
+}
+
+model Emprendimiento {
+  typo        String @id
+  descripcion String
+
+  rela_emp_prodfoto Productos_foto @relation(fields: [producto_foto], references: [Id_productos_foto])
+  producto_foto     Int
+
+  rela_produ_emp Productos @relation(fields: [producto], references: [nombre_producto])
+  producto       String
+
+  usuario                  Usuario[]
+  marketing_emprendimiento Marketing_emprendimiento[]
+  emprendimiento_producto  Emprendimiento_producto[]
+  usuario_emprendimiento   Usuario_Emprendimiento[]
+}
+
+model Emprendimiento_producto {
+  Id_emp_prod Int   @id @default(autoincrement())
+  costo       Float
+  stock       Int
+
+  rela_emp_prod Emprendimiento @relation(fields: [emp_prod], references: [typo])
+  emp_prod      String
+
+  rela_prod_emp Productos @relation(fields: [prod_emp], references: [nombre_producto])
+  prod_emp      String
+}
+
+model Colores_marca {
+  nom_colores            String                   @id
+  foto                   String
+  usuario_emprendimiento Usuario_Emprendimiento[]
+}
+
+model Marketing_emprendimiento {
+  Id_marketing_emprendimiento Int @id @default(autoincrement())
+
+  rela_emp_mark Emprendimiento @relation(fields: [typo_emp], references: [typo])
+  typo_emp      String
+
+  rela_mark_emp Marketing @relation(fields: [Id_mark], references: [Id_marketing])
+  Id_mark       Int
+}
+
+model Marketing {
+  Id_marketing Int @id @default(autoincrement())
+
+  rela_publi_mark Publicaciones @relation(fields: [publicacion], references: [link_plantilla])
+  publicacion     String
+
+  marketing_emprendimiento Marketing_emprendimiento[]
+}
+
+model Publicaciones {
+  link_plantilla String @id
+  desc           String
+  nombre         String
+
+  rela_foto_publi Publicaciones_foto @relation(fields: [foto], references: [Id_publicaciones_foto])
+  foto            Int
+
+  marketing Marketing[]
+}
+
+model Publicaciones_foto {
+  Id_publicaciones_foto Int    @id @default(autoincrement())
+  foto                  String
+
+  publicaciones Publicaciones[]
+}
+
+model Productos {
+  nombre_producto String @id
+  pasos           String
+  descripcion     String
+
+  rela_foto_produ Productos_foto @relation(fields: [foto], references: [Id_productos_foto])
+  foto            Int
+
+  emprendimiento           Emprendimiento[]
+  materiales_producto      Materiales_producto[]
+  emprendimiento_productos Emprendimiento_producto[]
+}
+
+model Productos_foto {
+  Id_productos_foto Int    @id @default(autoincrement())
+  foto              String
+
+  productos                   Productos[]
+  emprendimiento_productofoto Emprendimiento[]
+}
+
+model Materiales_producto {
+  Id_materiales_producto Int   @id @default(autoincrement())
+  costo                  Float
+  stock                  Int
+
+  rela_prod_mate Productos @relation(fields: [nom_prod], references: [nombre_producto])
+  nom_prod       String
+
+  rela_mate_produ Materiales @relation(fields: [nom_mat], references: [nombre])
+  nom_mat         String
+}
+
+model Materiales {
+  nombre String @id
+
+  rela_foto_mate  Materiales_foto @relation(fields: [foto_materiales], references: [Id_materiales_foto])
+  foto_materiales Int
+
+  materiales_producto Materiales_producto[]
+}
+
+model Materiales_foto {
+  Id_materiales_foto Int    @id @default(autoincrement())
+  foto               String
+
+  materiales Materiales[]
+}
