@@ -70,7 +70,9 @@ model Contactos {
 model Emprendimiento {
   typo String @id
   descripcion String
-  nombre String 
+
+  rela_emp_prodfoto Productos_foto @relation(fields: [producto_foto], references: [Id_productos_foto])
+  producto_foto Int
 
   rela_produ_emp Productos @relation(fields: [producto], references: [nombre_producto])
   producto String
@@ -153,6 +155,7 @@ model Productos_foto {
   foto String
 
   productos Productos []
+  emprendimiento_productofoto Emprendimiento []
 }
 
 
