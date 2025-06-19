@@ -83,6 +83,8 @@ model Emprendimiento {
 
 model Emprendimiento_producto{
   Id_emp_prod Int @id @default(autoincrement())
+  costo Float
+  stock Int
 
   rela_emp_prod Emprendimiento  @relation(fields: [emp_prod], references: [typo])
   emp_prod String
@@ -141,13 +143,6 @@ model Productos {
   rela_foto_produ Productos_foto @relation(fields: [foto], references: [Id_productos_foto])
   foto Int
 
-  rela_produ_costo Productos_costo @relation(fields: [costo], references: [Id_productos_costo])
-  costo Int
-
-
-  rela_produ_stck Productos_stock @relation(fields: [stock], references: [Id_productos_stock])
-  stock Int
-
   emprendimiento Emprendimiento []
   materiales_producto Materiales_producto []
   emprendimiento_productos Emprendimiento_producto []
@@ -160,21 +155,11 @@ model Productos_foto {
   productos Productos []
 }
 
-model Productos_costo {
-  Id_productos_costo Int @id @default(autoincrement())
-  costo Float
-
-  productos Productos[]
-}
-model Productos_stock {
-  Id_productos_stock Int @id @default(autoincrement())
-  stock Int
-
-  productos Productos[]
-}
 
 model Materiales_producto {
   Id_materiales_producto Int @id @default(autoincrement())
+  costo Float
+  stock Int
 
   rela_prod_mate Productos @relation(fields: [nom_prod], references: [nombre_producto])
   nom_prod String
