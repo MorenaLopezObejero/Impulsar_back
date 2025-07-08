@@ -43,6 +43,7 @@ model Usuario_Emprendimiento {
 
   rela_emp_usuemp Emprendimiento @relation(fields: [typo], references: [typo])
   typo String
+  emprendimiento_producto Emprendimiento_producto []
 }
 
 model Foto_Usuario {
@@ -79,7 +80,6 @@ model Emprendimiento {
 
   usuario Usuario[]
   marketing_emprendimiento Marketing_emprendimiento []
-  emprendimiento_producto Emprendimiento_producto []
   usuario_emprendimiento Usuario_Emprendimiento[]
 }
 
@@ -88,11 +88,13 @@ model Emprendimiento_producto{
   costo Float
   stock Int
 
-  rela_emp_prod Emprendimiento  @relation(fields: [emp_prod], references: [typo])
-  emp_prod String
+  rela_empprod_usuemp Usuario_Emprendimiento  @relation(fields: [typo], references: [Id_usu_emp])
+  typo Int
 
   rela_prod_emp Productos @relation(fields: [prod_emp], references: [nombre_producto])
   prod_emp String
+
+  materiales_productos Materiales_producto []
 }
 model Colores_marca {
   nom_colores String @id
@@ -146,7 +148,6 @@ model Productos {
   foto Int
 
   emprendimiento Emprendimiento []
-  materiales_producto Materiales_producto []
   emprendimiento_productos Emprendimiento_producto []
 }
 
@@ -163,9 +164,10 @@ model Materiales_producto {
   Id_materiales_producto Int @id @default(autoincrement())
   costo Float
   stock Int
+  Cantidades String
 
-  rela_prod_mate Productos @relation(fields: [nom_prod], references: [nombre_producto])
-  nom_prod String
+  rela_prod_mate Emprendimiento_producto @relation(fields: [nom_prod], references: [Id_emp_prod])
+  nom_prod Int
 
   rela_mate_produ Materiales @relation(fields: [nom_mat], references: [nombre])
   nom_mat String
