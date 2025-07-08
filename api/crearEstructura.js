@@ -1,25 +1,29 @@
-import fs from 'fs';
-import path from 'path';
+// crearEstructura.js usando import en vez de require
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const carpetas = [
-  'controllers',
-  'routes',
-  'services',
-  'models',
-  'middlewares',
-  'uploads',
-  'config',
-  'db'
+  "api/controllers",
+  "api/routes",
+  "api/services",
+  "api/models",
+  "api/middlewares",
+  "api/uploads",
+  "api/config",
+  "api/db"
 ];
 
-const base = './api';
-
-carpetas.forEach(nombre => {
-  const ruta = path.join(base, nombre);
+carpetas.forEach((carpeta) => {
+  const ruta = path.join(__dirname, carpeta);
   if (!fs.existsSync(ruta)) {
     fs.mkdirSync(ruta, { recursive: true });
-    console.log(`📁 Carpeta creada: ${ruta}`);
+    console.log(`🟢 Carpeta creada: ${carpeta}`);
   } else {
-    console.log(`✅ Ya existe: ${ruta}`);
+    console.log(`🟡 Ya existe: ${carpeta}`);
   }
 });
