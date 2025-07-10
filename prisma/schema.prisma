@@ -144,7 +144,6 @@ model Productos {
   pasos String
   descripcion String
   Herramientas String
-  Unidades String
 
   rela_foto_produ Productos_foto @relation(fields: [foto], references: [Id_productos_foto])
   foto Int
@@ -177,6 +176,7 @@ model Materiales_producto {
 
 model Materiales {
   nombre String @id
+  Unidades String
 
   rela_foto_mate Materiales_foto @relation(fields: [foto_materiales], references: [Id_materiales_foto])
   foto_materiales Int
