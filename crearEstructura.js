@@ -1,12 +1,14 @@
-// crearEstructura.js usando import en vez de require
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+// crearEstructura.js usando import (ESModules)
 
+import fs from "fs";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+// Obtener __dirname usando ESModules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Lista de carpetas a crear
 const carpetas = [
   "api/controllers",
   "api/routes",
@@ -18,6 +20,7 @@ const carpetas = [
   "api/db"
 ];
 
+// Crear cada carpeta si no existe
 carpetas.forEach((carpeta) => {
   const ruta = path.join(__dirname, carpeta);
   if (!fs.existsSync(ruta)) {
