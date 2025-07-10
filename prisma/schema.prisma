@@ -143,6 +143,8 @@ model Productos {
   nombre_producto String @id
   pasos String
   descripcion String
+  Herramientas String
+  Unidades String
 
   rela_foto_produ Productos_foto @relation(fields: [foto], references: [Id_productos_foto])
   foto Int
