@@ -145,8 +145,8 @@ model Productos {
   descripcion String
   Herramientas String
 
-  rela_foto_produ Productos_foto @relation(fields: [foto], references: [Id_productos_foto])
-  foto Int
+  rela_foto_produ Productos_foto? @relation(fields: [foto], references: [Id_productos_foto])
+  foto Int?
 
   emprendimiento Emprendimiento []
   emprendimiento_productos Emprendimiento_producto []
@@ -165,7 +165,7 @@ model Materiales_producto {
   Id_materiales_producto Int @id @default(autoincrement())
   costo Float
   stock Int
-  Cantidades String
+  Cantdades String
 
   rela_prod_mate Emprendimiento_producto @relation(fields: [nom_prod], references: [Id_emp_prod])
   nom_prod Int
